@@ -1,6 +1,10 @@
 import Foundation
 
 public struct ResourceLoader {
+
+    public enum LoardingError: Error {
+        case badParsing
+    }
     
     public init() {
     }
@@ -15,13 +19,14 @@ public struct ResourceLoader {
         request.allHTTPHeaderFields = resource.allHTTPHeaderFields
         let task = URLSession.shared.dataTask(with: request) { data, response, error in
             if let error = error {
-                completion(Result.error(error))
+                completion(Result.failure(error))
                 return
             }
-
+            
             guard
                 let data = data,
-                let success = resource.parse(data) else {
+                let success = try? resource.parse(data) else {
+                    completion(Result.failure(ResourceLoader.LoardingError.badParsing))
                     return
                 }
                 
