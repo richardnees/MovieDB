@@ -7,14 +7,14 @@ public struct Movie: Codable {
     public let voteAverage: Decimal
     public let title: String
     public let popularity: Decimal
-    public let posterPathComponent: String
+    public let posterPathComponent: String?
     public let originalLanguage: String
     public let originalTitle: String
     public let genreIDs: [Int]
-    public let backdropPathComponent: String
+    public let backdropPathComponent: String?
     public let isAdult: Bool
     public let overview: String
-    public let releaseDate: String
+    public let releaseDateString: String
 
     private enum CodingKeys: String, CodingKey {
         case voteCount = "vote_count"
@@ -30,6 +30,15 @@ public struct Movie: Codable {
         case backdropPathComponent = "backdrop_path"
         case isAdult = "adult"
         case overview = "overview"
-        case releaseDate = "release_date"
+        case releaseDateString = "release_date"
+    }
+}
+
+extension Movie {
+    public var releaseDate: Date? {
+        guard let releaseDate = API.yearMonthDayDateFormatter.date(from: releaseDateString) else {
+            return nil
+        }
+        return releaseDate
     }
 }

@@ -25,7 +25,7 @@ public struct ResourceLoader {
             
             guard
                 let data = data,
-                let success = try? resource.parse(data) else {
+                let success = resource.parse(data) else {
                     completion(Result.failure(ResourceLoader.LoardingError.badParsing))
                     return
                 }

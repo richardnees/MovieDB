@@ -1,8 +1,8 @@
 import Foundation
 
-public struct MovieSearchRequest {
-    public let query: String
-    public let page: Int
+public class MovieSearchRequest {
+    public var query: String
+    public var page: Int
     
     public init(query: String, page: Int = 1) {
         self.query = query

@@ -8,20 +8,18 @@ struct API {
     }()
     
     static let baseURLComponents: URLComponents = {
-        var baseURLComponents = URLComponents()
-        baseURLComponents.scheme = "https"
-        baseURLComponents.host = "api.themoviedb.org"
-        baseURLComponents.queryItems = API.defaultQueryItems
-        return baseURLComponents
+        var urlComponents = URLComponents()
+        urlComponents.scheme = "https"
+        urlComponents.host = "api.themoviedb.org"
+        urlComponents.queryItems = API.defaultQueryItems
+        return urlComponents
     }()
 
-    static let dateFormatter: DateFormatter = {
+    static let yearMonthDayDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")
         dateFormatter.dateFormat = "yyyy-MM-dd"
         dateFormatter.timeZone = TimeZone(secondsFromGMT: 0)
         return dateFormatter
     }()
-
-    static let dateDecodingStrategy = JSONDecoder.DateDecodingStrategy.formatted(API.dateFormatter)
 }
