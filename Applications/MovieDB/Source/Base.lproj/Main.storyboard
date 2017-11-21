@@ -8,10 +8,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--Navigation Controller-->
+        <!--Movie Navigation Controller-->
         <scene sceneID="OH5-94-Ei0">
             <objects>
-                <navigationController id="Pge-E0-l4f" sceneMemberID="viewController">
+                <navigationController id="Pge-E0-l4f" customClass="MovieNavigationController" customModule="MovieDB" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="vnB-2g-lKG">
                         <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>

@@ -19,8 +19,10 @@
 		796E74391FC3492B00EF25F5 /* DataSourceLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796E74361FC3492A00EF25F5 /* DataSourceLoadingCell.swift */; };
 		796E743B1FC3492B00EF25F5 /* DataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796E74381FC3492B00EF25F5 /* DataSourceController.swift */; };
 		796E743C1FC3494200EF25F5 /* DataSourceLoadingCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 796E743E1FC3494200EF25F5 /* DataSourceLoadingCell.xib */; };
-		796E74411FC349A900EF25F5 /* DataSourceDisplayableItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796E74401FC349A800EF25F5 /* DataSourceDisplayableItem.swift */; };
 		79D5C3231FC3896300F2F07D /* DataSourceDisplayableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79D5C3221FC3896300F2F07D /* DataSourceDisplayableCell.swift */; };
+		79EC53BF1FC4605900C6255D /* DefaultDataSourceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EC53BE1FC4605900C6255D /* DefaultDataSourceProvider.swift */; };
+		79EC53C71FC464EF00C6255D /* DataSourceController+UITableViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EC53C61FC464EF00C6255D /* DataSourceController+UITableViewDataSource.swift */; };
+		79EC53C91FC4651100C6255D /* DataSourceController+UITableViewDataSourcePrefetching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79EC53C81FC4651100C6255D /* DataSourceController+UITableViewDataSourcePrefetching.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,8 +51,10 @@
 		796E74361FC3492A00EF25F5 /* DataSourceLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceLoadingCell.swift; sourceTree = "<group>"; };
 		796E74381FC3492B00EF25F5 /* DataSourceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceController.swift; sourceTree = "<group>"; };
 		796E743D1FC3494200EF25F5 /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DataSourceLoadingCell.xib; sourceTree = "<group>"; };
-		796E74401FC349A800EF25F5 /* DataSourceDisplayableItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceDisplayableItem.swift; sourceTree = "<group>"; };
 		79D5C3221FC3896300F2F07D /* DataSourceDisplayableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSourceDisplayableCell.swift; sourceTree = "<group>"; };
+		79EC53BE1FC4605900C6255D /* DefaultDataSourceProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDataSourceProvider.swift; sourceTree = "<group>"; };
+		79EC53C61FC464EF00C6255D /* DataSourceController+UITableViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceController+UITableViewDataSource.swift"; sourceTree = "<group>"; };
+		79EC53C81FC4651100C6255D /* DataSourceController+UITableViewDataSourcePrefetching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DataSourceController+UITableViewDataSourcePrefetching.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -144,9 +148,11 @@
 			isa = PBXGroup;
 			children = (
 				796E74381FC3492B00EF25F5 /* DataSourceController.swift */,
+				79EC53C61FC464EF00C6255D /* DataSourceController+UITableViewDataSource.swift */,
+				79EC53C81FC4651100C6255D /* DataSourceController+UITableViewDataSourcePrefetching.swift */,
+				79EC53BE1FC4605900C6255D /* DefaultDataSourceProvider.swift */,
 				796E743E1FC3494200EF25F5 /* DataSourceLoadingCell.xib */,
 				796E74361FC3492A00EF25F5 /* DataSourceLoadingCell.swift */,
-				796E74401FC349A800EF25F5 /* DataSourceDisplayableItem.swift */,
 				79D5C3221FC3896300F2F07D /* DataSourceDisplayableCell.swift */,
 			);
 			path = DataSourceController;
@@ -268,10 +274,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				796E743B1FC3492B00EF25F5 /* DataSourceController.swift in Sources */,
+				79EC53BF1FC4605900C6255D /* DefaultDataSourceProvider.swift in Sources */,
 				79D5C3231FC3896300F2F07D /* DataSourceDisplayableCell.swift in Sources */,
+				79EC53C91FC4651100C6255D /* DataSourceController+UITableViewDataSourcePrefetching.swift in Sources */,
 				793FDEB91FC1E96600EE461D /* ImageView.swift in Sources */,
 				796E74391FC3492B00EF25F5 /* DataSourceLoadingCell.swift in Sources */,
-				796E74411FC349A900EF25F5 /* DataSourceDisplayableItem.swift in Sources */,
+				79EC53C71FC464EF00C6255D /* DataSourceController+UITableViewDataSource.swift in Sources */,
 				79317FCB1FC1C4B3005A5900 /* MovieDBKit.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

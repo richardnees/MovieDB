@@ -1,16 +1,15 @@
 import Foundation
 
-public struct MovieSearchContainer: Codable, ResourceContainer {
+public struct MovieSearchContainer: Codable {
     public var page: Int
-    public let totalResults: Int
-    public let totalPages: Int
+    public let totalResultCount: Int
+    public let totalPageCount: Int
     public var results: [Movie]
-    public var accumulatedResults: [Codable] = []
     
     private enum CodingKeys: String, CodingKey {
         case page = "page"
-        case totalResults = "total_results"
-        case totalPages = "total_pages"
+        case totalResultCount = "total_results"
+        case totalPageCount = "total_pages"
         case results = "results"
     }
 }

@@ -2,6 +2,9 @@ import UIKit
 
 public class DataSourceLoadingCell: UITableViewCell {
 
+    static let identifier = String(describing: DataSourceLoadingCell.self)
+    static let nibName = String(describing: DataSourceLoadingCell.self)
+
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     
     public override func awakeFromNib() {

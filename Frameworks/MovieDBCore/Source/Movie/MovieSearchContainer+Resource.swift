@@ -2,11 +2,13 @@ import Foundation
 
 extension MovieSearchContainer {
     public static func search(request: MovieSearchRequest) -> Resource<MovieSearchContainer> {
-        return Resource<MovieSearchContainer>(url: request.url, decode: { (data, decoder) in
+        return Resource<MovieSearchContainer>(url: request.url, decode: { data in
+            let decoder = JSONDecoder()
             do {
-                return try decoder.decode(MovieSearchContainer.self, from: data)
+                let decoded = try decoder.decode(MovieSearchContainer.self, from: data)
+                return decoded
             } catch let error {
-                // FIXME: Handle error
+                // FIXME:
             }
             return nil
         })

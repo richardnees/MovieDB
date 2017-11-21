@@ -1,9 +1,103 @@
 import UIKit
+import MovieDBCore
+import MovieDBKit
+
+class MovieSearchHistoryCell: UITableViewCell, DataSourceDisplayableCell {
+    var item: DataSourceDisplayableItem? {
+        didSet {
+            guard let item = item as? MovieSearchHistoryItem else { return }
+        
+            textLabel?.text = item.query
+        }
+    }
+}
+
+struct MovieSearchHistoryItem: DataSourceDisplayableItem {
+    var query: String
+    var modificationDate: Date
+
+    init(query: String) {
+        self.query = query
+        modificationDate = Date()
+    }
+    
+    var cellIdentifier: String {
+        return String(describing: MovieSearchHistoryCell.self)
+    }
+}
+
+class MovieSearchHistoryProvider: JSONCodableDataSourceProviding {    
+    var headerTitle = NSLocalizedString("Recent Searches", comment: "Needs comment")
+    var items: [DataSourceDisplayableItem] = []
+    var totalItemCount: Int = 0
+    var errorHandler: DataSourceProvidingErrorHandler?
+    var updateHandler: DataSourceProvidingUpdateHandler?
+    let allowsEditing = true
+    
+    var maxItemsCount = 10
+    let storageURL = FileManager.applicationSupportURL.appendingPathComponent("MovieSearchHistory").appendingPathExtension("json")
+    
+    func load() {
+        guard FileManager.default.fileExists(atPath: storageURL.path) else { return }
+
+        do {
+            let data = try Data(contentsOf: storageURL)
+            let items = try decoder.decode([MovieSearchHistoryItem].self, from: data)
+            self.items = items
+        } catch let error {
+            errorHandler?(error)
+        }
+        updateHandler?()
+    }
+
+    func update() {
+        do {
+            try FileManager.default.createDirectory(at: storageURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
+            let historyItems = items as? [MovieSearchHistoryItem]
+            let data = try encoder.encode(historyItems)
+            try data.write(to: storageURL)
+        } catch let error {
+            errorHandler?(error)
+        }
+        updateHandler?()
+    }
+        
+    func flush() {
+        
+        updateHandler?()
+    }
+    
+    func append(item: DataSourceDisplayableItem) {
+        items.insert(item, at: 0)
+        
+        if items.count >= maxItemsCount {
+            items = Array(items[..<maxItemsCount])
+        }
+    }
+}
 
 class MovieSearchViewController: UITableViewController {
 
-    var dataSource: [String] = []
-    
+    var dataSourceController = DataSourceController() {
+        didSet {
+            
+            tableView.reloadData()
+                        
+            dataSourceController.tableView = tableView
+            
+            dataSourceController.errorHandler = { error in
+                // FIXME: Handle error
+                print(error)
+            }
+            
+            dataSourceController.updateHandler = {
+                DispatchQueue.main.async {
+                    self.tableView.reloadData()
+                }
+            }
+        }
+    }
+
     lazy var searchResultsController: MovieSearchResultsViewController = {
         guard let searchResultsController = UIStoryboard(name: String(describing: MovieSearchResultsViewController.self), bundle: nil).instantiateInitialViewController() as? MovieSearchResultsViewController else {
             fatalError("We need a MovieSearchResultsViewController")
@@ -14,16 +108,12 @@ class MovieSearchViewController: UITableViewController {
     lazy var searchController: UISearchController = {
         return UISearchController(searchResultsController: searchResultsController)
     }()
-
+    
     // MARK: - View controller life cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // We need to set this in code due to a bug with the storyboard in iOS 11
-        // https://stackoverflow.com/questions/45144324/hide-large-title-when-scrolling-up
-        navigationController?.navigationBar.prefersLargeTitles = true
-
         searchController.delegate = self
         searchController.searchBar.delegate = self
         navigationItem.searchController = searchController
@@ -31,42 +121,23 @@ class MovieSearchViewController: UITableViewController {
         navigationItem.rightBarButtonItem = editButtonItem
 
         definesPresentationContext = true
+        
+        dataSourceController = DataSourceController()
+        let provider = MovieSearchHistoryProvider()
+        provider.load()
+        dataSourceController.provider = provider
     }
 
-    // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return dataSource.count
-    }
-
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "MovieSearchHistoryCell", for: indexPath)
-        cell.textLabel?.text = dataSource[indexPath.row]
-        return cell
-    }
-
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        return true
-    }
-    
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            dataSource.remove(at: indexPath.row)
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        }
-    }
-    
     // MARK: - Table view delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let query = dataSource[indexPath.row]
-        searchController.searchBar.text = query
+        tableView.deselectRow(at: indexPath, animated: true)
+        
+        guard let item = dataSourceController.provider.items[indexPath.row] as? MovieSearchHistoryItem else { return }
+        
+        searchController.searchBar.text = item.query
         present(searchController, animated: true) {
-            self.searchResultsController.query = query
+            self.searchResultsController.query = item.query
         }
     }
 }
@@ -76,7 +147,10 @@ class MovieSearchViewController: UITableViewController {
 extension MovieSearchViewController: UISearchControllerDelegate {
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        searchResultsController.dataSource = nil
+        // FIXME:
+        //        searchResultsController.dataSource = nil
+        
+        tableView.reloadData()
     }
 }
 
@@ -88,11 +162,13 @@ extension MovieSearchViewController: UISearchBarDelegate {
             let query = searchBar.text,
             !query.isEmpty {
             
-            dataSource.insert(query, at: 0)
-            tableView.reloadData()
+            if let provider = dataSourceController.provider as? CodableDataSourceProviding {
+                let item = MovieSearchHistoryItem(query: query)
+                provider.append(item: item)
+            }
+            dataSourceController.update()
             
             searchResultsController.query = query
         }
     }
 }
-

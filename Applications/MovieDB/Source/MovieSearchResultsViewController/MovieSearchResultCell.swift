@@ -10,11 +10,11 @@ class MovieSearchResultCell: UITableViewCell, DataSourceDisplayableCell {
         
     var item: DataSourceDisplayableItem? {
         didSet {
-            guard let item = item else { return }
-            titleLabel.text = item.title
-            overviewLabel.text = item.overview
+            guard let movie = item as? Movie else { return }
+            titleLabel.text = movie.title
+            overviewLabel.text = movie.overview
             
-            if let releaseDate = item.releaseDate {
+            if let releaseDate = movie.releaseDate {
                 releaseDateLabel.text = MovieSearchResultCell.releaseDateFormatter.string(from: releaseDate)
                 releaseDateLabel.isHidden = false
             } else {
@@ -22,7 +22,7 @@ class MovieSearchResultCell: UITableViewCell, DataSourceDisplayableCell {
             }
             
             if
-                let posterPathComponent = item.posterPathComponent,
+                let posterPathComponent = movie.posterPathComponent,
                 let posterURL = Poster(path: posterPathComponent).url(for: .medium) {
                 self.posterImageView.load(url: posterURL) { error in
                     // FIXME: Handle error

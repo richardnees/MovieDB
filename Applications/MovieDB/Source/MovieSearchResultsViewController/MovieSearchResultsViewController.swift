@@ -4,28 +4,25 @@ import MovieDBKit
 
 class MovieSearchResultsViewController: UITableViewController {
 
-    var dataSource: DataSourceController? {
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        dataSourceController = DataSourceController()
+    }
+    
+    var dataSourceController = DataSourceController() {
         didSet {
             
             tableView.reloadData()
             
-            guard let dataSource = dataSource else {
-                return
-            }
-            
-            dataSource.tableView = tableView
-            
-            dataSource.errorHandler = { error in
+            dataSourceController.tableView = tableView
+                        
+            dataSourceController.errorHandler = { error in
                 // FIXME: Handle error
                 print(error)
             }
             
-            dataSource.updateHandler = {
-                DispatchQueue.main.async {
-                    self.tableView.reloadData()
-                }
-            }
-            dataSource.cancellationHandler = {
+            dataSourceController.updateHandler = {
                 DispatchQueue.main.async {
                     self.tableView.reloadData()
                 }
@@ -36,12 +33,11 @@ class MovieSearchResultsViewController: UITableViewController {
     var query: String = "" {
         didSet {
             if !query.isEmpty {
-                dataSource?.cancel()
-                dataSource = DataSourceController()
-                dataSource?.request = MovieSearchRequest(query: query)
-                dataSource?.resume()
+                let dataSourceProvider = MovieSearchResultDataSourceProvider()
+                dataSourceProvider.request = MovieSearchRequest(query: query)
+                dataSourceController.provider = dataSourceProvider
+                dataSourceController.update()
             }
         }
     }
 }
-
