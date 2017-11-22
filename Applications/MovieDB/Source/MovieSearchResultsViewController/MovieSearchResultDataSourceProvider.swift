@@ -1,8 +1,9 @@
 import Foundation
 import MovieDBCore
 
-class MovieSearchResultDataSourceProvider: PagingDataSourceProviding {
+class MovieSearchResultDataSourceProvider: DataSourceNetworkPagingProviding {
     var headerTitle = ""
+    var emptyDataSourceInfoString = NSLocalizedString("No results", comment: "Needs comment")
     var errorHandler: DataSourceProvidingErrorHandler?
     var updateHandler: DataSourceProvidingUpdateHandler?
     var items: [DataSourceDisplayableItem] = []
@@ -16,7 +17,7 @@ class MovieSearchResultDataSourceProvider: PagingDataSourceProviding {
     var request: MovieSearchRequest = MovieSearchRequest(query: "")
     
     func update() {
-        let resource = MovieSearchContainer.search(request: request)
+        let resource = MovieSearchContainer.search(with: request)
         task = ResourceLoader().dataTask(resource: resource) { [weak self] result in
             guard var strongSelf = self else { return }
 
@@ -28,7 +29,6 @@ class MovieSearchResultDataSourceProvider: PagingDataSourceProviding {
                 strongSelf.append(items: container.results)
                 
                 if strongSelf.page == 1 {
-                    // FIXME: Maybe have an "initial load" closure?
                     strongSelf.updateHandler?()
                 }
             case let .failure(error):

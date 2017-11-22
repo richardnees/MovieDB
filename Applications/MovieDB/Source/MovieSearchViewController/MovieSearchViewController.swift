@@ -2,81 +2,10 @@ import UIKit
 import MovieDBCore
 import MovieDBKit
 
-class MovieSearchHistoryCell: UITableViewCell, DataSourceDisplayableCell {
-    var item: DataSourceDisplayableItem? {
-        didSet {
-            guard let item = item as? MovieSearchHistoryItem else { return }
-        
-            textLabel?.text = item.query
-        }
-    }
-}
-
-struct MovieSearchHistoryItem: DataSourceDisplayableItem {
-    var query: String
-    var modificationDate: Date
-
-    init(query: String) {
-        self.query = query
-        modificationDate = Date()
-    }
-    
-    var cellIdentifier: String {
-        return String(describing: MovieSearchHistoryCell.self)
-    }
-}
-
-class MovieSearchHistoryProvider: JSONCodableDataSourceProviding {    
-    var headerTitle = NSLocalizedString("Recent Searches", comment: "Needs comment")
-    var items: [DataSourceDisplayableItem] = []
-    var totalItemCount: Int = 0
-    var errorHandler: DataSourceProvidingErrorHandler?
-    var updateHandler: DataSourceProvidingUpdateHandler?
-    let allowsEditing = true
-    
-    var maxItemsCount = 10
-    let storageURL = FileManager.applicationSupportURL.appendingPathComponent("MovieSearchHistory").appendingPathExtension("json")
-    
-    func load() {
-        guard FileManager.default.fileExists(atPath: storageURL.path) else { return }
-
-        do {
-            let data = try Data(contentsOf: storageURL)
-            let items = try decoder.decode([MovieSearchHistoryItem].self, from: data)
-            self.items = items
-        } catch let error {
-            errorHandler?(error)
-        }
-        updateHandler?()
-    }
-
-    func update() {
-        do {
-            try FileManager.default.createDirectory(at: storageURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
-            let historyItems = items as? [MovieSearchHistoryItem]
-            let data = try encoder.encode(historyItems)
-            try data.write(to: storageURL)
-        } catch let error {
-            errorHandler?(error)
-        }
-        updateHandler?()
-    }
-        
-    func flush() {
-        
-        updateHandler?()
-    }
-    
-    func append(item: DataSourceDisplayableItem) {
-        items.insert(item, at: 0)
-        
-        if items.count >= maxItemsCount {
-            items = Array(items[..<maxItemsCount])
-        }
-    }
-}
 
 class MovieSearchViewController: UITableViewController {
+    
+    // MARK: - Data Source Controller
 
     var dataSourceController = DataSourceController() {
         didSet {
@@ -98,6 +27,8 @@ class MovieSearchViewController: UITableViewController {
         }
     }
 
+    // MARK: - Search (Results) Controller
+
     lazy var searchResultsController: MovieSearchResultsViewController = {
         guard let searchResultsController = UIStoryboard(name: String(describing: MovieSearchResultsViewController.self), bundle: nil).instantiateInitialViewController() as? MovieSearchResultsViewController else {
             fatalError("We need a MovieSearchResultsViewController")
@@ -109,13 +40,25 @@ class MovieSearchViewController: UITableViewController {
         return UISearchController(searchResultsController: searchResultsController)
     }()
     
-    // MARK: - View controller life cycle
+    // MARK: - Button Bar Items
+    
+    var deleteAllBarButton: UIBarButtonItem {
+        let deleteAllBarButton = UIBarButtonItem(
+            title: NSLocalizedString("Delete All", comment: "Needs comment"),
+            style: .plain,
+            target: self,
+            action: #selector(deleteAll(_:)))
+        return deleteAllBarButton
+    }
+
+    // MARK: - View Controller Life Cycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
         searchController.delegate = self
         searchController.searchBar.delegate = self
+        searchController.obscuresBackgroundDuringPresentation = true
         navigationItem.searchController = searchController
         navigationItem.hidesSearchBarWhenScrolling = false
         navigationItem.rightBarButtonItem = editButtonItem
@@ -124,11 +67,11 @@ class MovieSearchViewController: UITableViewController {
         
         dataSourceController = DataSourceController()
         let provider = MovieSearchHistoryProvider()
-        provider.load()
         dataSourceController.provider = provider
+        provider.load()
     }
 
-    // MARK: - Table view delegate
+    // MARK: - Table View Delegate
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -140,6 +83,44 @@ class MovieSearchViewController: UITableViewController {
             self.searchResultsController.query = item.query
         }
     }
+    
+    // MARK: - Table View Editing
+
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        guard dataSourceController.provider.allowsFlush else { return }
+
+        navigationItem.leftBarButtonItem = editing ? deleteAllBarButton : nil
+    }
+    
+    @objc func deleteAll(_ sender: Any) {
+        guard dataSourceController.provider.allowsFlush else { return }
+        if let provider = dataSourceController.provider as? DataSourceCodableProviding {
+            
+            let alert = UIAlertController(
+                title: NSLocalizedString("Delete All", comment: "Needs comment"),
+                message: NSLocalizedString("Are you sure?", comment: "Needs comment"),
+                preferredStyle: .actionSheet)
+            
+            alert.addAction(
+                UIAlertAction(
+                    title: NSLocalizedString("Delete", comment: "Needs comment"),
+                    style: .destructive,
+                    handler: { action in
+                        provider.flush()
+                        self.setEditing(false, animated: true)
+                }))
+
+            alert.addAction(
+                UIAlertAction(
+                    title: NSLocalizedString("Cancel", comment: "Needs comment"),
+                    style: .cancel,
+                    handler: nil))
+            
+            present(alert, animated: true, completion: nil)
+        }
+    }
 }
 
 // MARK: - UISearchControllerDelegate
@@ -147,9 +128,6 @@ class MovieSearchViewController: UITableViewController {
 extension MovieSearchViewController: UISearchControllerDelegate {
     
     func didDismissSearchController(_ searchController: UISearchController) {
-        // FIXME:
-        //        searchResultsController.dataSource = nil
-        
         tableView.reloadData()
     }
 }
@@ -162,7 +140,7 @@ extension MovieSearchViewController: UISearchBarDelegate {
             let query = searchBar.text,
             !query.isEmpty {
             
-            if let provider = dataSourceController.provider as? CodableDataSourceProviding {
+            if let provider = dataSourceController.provider as? DataSourceCodableProviding {
                 let item = MovieSearchHistoryItem(query: query)
                 provider.append(item: item)
             }

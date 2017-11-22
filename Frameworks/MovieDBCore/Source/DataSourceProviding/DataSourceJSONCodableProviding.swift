@@ -1,9 +1,9 @@
 import Foundation
 
-public protocol JSONCodableDataSourceProviding: CodableDataSourceProviding {
+public protocol DataSourceJSONCodableProviding: DataSourceCodableProviding {
 }
 
-extension JSONCodableDataSourceProviding {
+extension DataSourceJSONCodableProviding {
     public var decoder: DataSourceDecoder {
         return JSONDecoder()
     }

@@ -42,3 +42,9 @@ extension Movie {
         return releaseDate
     }
 }
+
+extension Movie: Equatable {
+    public static func ==(lhs: Movie, rhs: Movie) -> Bool {
+        return lhs.id == rhs.id
+    }
+}

@@ -1,11 +1,11 @@
 import Foundation
 
-public protocol NetworkDataSourceProviding: DataSourceProviding {
+public protocol DataSourceNetworkProviding: DataSourceProviding {
     var task: URLSessionDataTask? { get set }
     func cancel()
 }
 
-extension NetworkDataSourceProviding {
+extension DataSourceNetworkProviding {
     public func cancel() {
         task?.cancel()
     }

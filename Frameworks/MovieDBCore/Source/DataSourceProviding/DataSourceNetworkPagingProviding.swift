@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol PagingDataSourceProviding: NetworkDataSourceProviding {
+public protocol DataSourceNetworkPagingProviding: DataSourceNetworkProviding {
     var page: Int { get set }
     var totalPageCount: Int { get set }
     
@@ -8,7 +8,7 @@ public protocol PagingDataSourceProviding: NetworkDataSourceProviding {
     func loadNextPageIfNeeded()
 }
 
-extension PagingDataSourceProviding {
+extension DataSourceNetworkPagingProviding {
     public mutating func append(items: [DataSourceDisplayableItem]) {
         self.items += items
     }

@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -20,8 +21,10 @@
                 <subviews>
                     <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="white" translatesAutoresizingMaskIntoConstraints="NO" id="OdV-uc-Diy">
                         <rect key="frame" x="150" y="11" width="20" height="20"/>
+                        <color key="color" name="loadingActivityIndicator"/>
                     </activityIndicatorView>
                 </subviews>
+                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                 <constraints>
                     <constraint firstItem="OdV-uc-Diy" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="3L4-eX-un1"/>
                     <constraint firstItem="OdV-uc-Diy" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="rCP-T6-nTl"/>
@@ -34,4 +37,9 @@
             </connections>
         </tableViewCell>
     </objects>
+    <resources>
+        <namedColor name="loadingActivityIndicator">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.84700000286102295" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
 </document>

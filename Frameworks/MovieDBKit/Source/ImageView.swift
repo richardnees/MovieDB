@@ -11,8 +11,13 @@ public class ImageView: UIImageView {
     
     public func load(url: URL, completion: @escaping (Error?) -> Void) {
         
-        let imageDataResource = Resource<UIImage>(url: url) { data -> UIImage? in
-            return UIImage(data: data)
+        let imageDataResource = Resource<UIImage>(url: url) { data -> Result<UIImage> in
+            if let image = UIImage(data: data) {
+                return Result.success(image)
+            } else {
+                // FIXME:
+                return Result.failure(ResourceLoader.ParsingError.imageCreationFailed)
+            }
         }
         
         dataTask = ResourceLoader().dataTask(resource: imageDataResource) { [weak self] result in

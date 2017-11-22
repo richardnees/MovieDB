@@ -1,9 +1,9 @@
 import Foundation
 
-public protocol PropertyListCodableDataSourceProviding: CodableDataSourceProviding {
+public protocol DataSourcePropertyListCodableProviding: DataSourceCodableProviding {
 }
 
-extension PropertyListCodableDataSourceProviding {
+extension DataSourcePropertyListCodableProviding {
     public var decoder: DataSourceDecoder {
         return PropertyListDecoder()
     }

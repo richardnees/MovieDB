@@ -1,9 +1,10 @@
 import Foundation
 
 public struct ResourceLoader {
-
-    public enum LoardingError: Error {
-        case badParsing
+    
+    public enum ParsingError: Error {
+        case noData
+        case imageCreationFailed
     }
     
     public init() {
@@ -13,7 +14,7 @@ public struct ResourceLoader {
         let task = dataTask(resource: resource, completion: completion)
         task.resume()
     }
-        
+    
     public func dataTask<A>(resource: Resource<A>, completion: @escaping (Result<A>) -> Void) -> URLSessionDataTask {
         var request = URLRequest(url: resource.url)
         request.allHTTPHeaderFields = resource.allHTTPHeaderFields
@@ -23,15 +24,21 @@ public struct ResourceLoader {
                 return
             }
             
-            guard
-                let data = data,
-                let success = resource.parse(data) else {
-                    completion(Result.failure(ResourceLoader.LoardingError.badParsing))
-                    return
-                }
-                
-            completion(Result.success(success))
+            guard let data = data else {
+                completion(Result.failure(ResourceLoader.ParsingError.noData))
+                return
+            }
+            
+            let parsedResult = resource.parse(data)
+            switch parsedResult {
+            case let .success(parsedResource):
+                completion(Result.success(parsedResource))
+            case let .failure(error):
+                completion(Result.failure(error))
+                break
+            }
         }
         return task
     }
 }
+

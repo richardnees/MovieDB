@@ -7,19 +7,15 @@ extension DataSourceController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if let provider = provider as? PagingDataSourceProviding {
-            return provider.totalItemCount
-        } else {
-            return provider.items.count
-        }
+        return provider.totalItemCount
     }
 
     public func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        return provider.headerTitle
+        return provider.totalItemCount > 0 ? provider.headerTitle : nil
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let provider = provider as? PagingDataSourceProviding {
+        if let provider = provider as? DataSourceNetworkPagingProviding {
             guard indexPath.row < provider.totalItemCount else {
                 return tableView.dequeueReusableCell(withIdentifier: DataSourceLoadingCell.identifier, for: indexPath)
             }
@@ -34,7 +30,7 @@ extension DataSourceController: UITableViewDataSource {
         }
         return cell as UITableViewCell
     }
-    
+        
     public func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
         return provider.allowsEditing
     }

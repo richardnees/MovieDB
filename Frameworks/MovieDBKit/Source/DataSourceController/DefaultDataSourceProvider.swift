@@ -3,6 +3,7 @@ import MovieDBCore
 
 public class DefaultDataSourceProvider: DataSourceProviding {
     public var headerTitle = ""
+    public var emptyDataSourceInfoString = ""
     public var items: [DataSourceDisplayableItem] = []
     public var totalItemCount: Int = 0
     public var errorHandler: DataSourceProvidingErrorHandler?

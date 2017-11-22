@@ -5,6 +5,7 @@
     </device>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -15,7 +16,8 @@
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="EK2-3y-JcM">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <color key="backgroundColor" name="tableViewBackground"/>
+                        <color key="separatorColor" name="tableViewSeparator"/>
                         <inset key="separatorInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="MovieSearchResultCell" rowHeight="185" id="413-Am-Bq1" customClass="MovieSearchResultCell" customModule="MovieDB" customModuleProvider="target">
@@ -40,19 +42,19 @@
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Lag-Hy-gQN">
                                                             <rect key="frame" x="0.0" y="0.0" width="237" height="20.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" name="primaryLabel"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="883-m6-5pS">
                                                             <rect key="frame" x="0.0" y="24.5" width="237" height="13.5"/>
                                                             <fontDescription key="fontDescription" type="system" weight="medium" pointSize="11"/>
-                                                            <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                            <color key="textColor" name="secondaryLabel"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="d69-Tp-Fng">
                                                             <rect key="frame" x="0.0" y="42" width="237" height="16"/>
                                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
-                                                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                            <color key="textColor" name="primaryLabel"/>
                                                             <nil key="highlightedColor"/>
                                                         </label>
                                                     </subviews>
@@ -60,6 +62,7 @@
                                             </subviews>
                                         </stackView>
                                     </subviews>
+                                    <color key="backgroundColor" name="tableViewCellBackground"/>
                                     <constraints>
                                         <constraint firstItem="zfZ-bP-CDs" firstAttribute="top" secondItem="hgX-S6-WcT" secondAttribute="top" constant="15" id="8R0-Hg-YGi"/>
                                         <constraint firstItem="zfZ-bP-CDs" firstAttribute="leading" secondItem="hgX-S6-WcT" secondAttribute="leading" constant="15" id="nHN-OL-vf3"/>
@@ -67,12 +70,13 @@
                                         <constraint firstAttribute="trailing" secondItem="zfZ-bP-CDs" secondAttribute="trailing" constant="15" id="wfG-xX-mH2"/>
                                     </constraints>
                                 </tableViewCellContentView>
-                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <color key="backgroundColor" name="tableViewCellBackground"/>
                                 <connections>
                                     <outlet property="overviewLabel" destination="d69-Tp-Fng" id="A59-Ro-3YE"/>
                                     <outlet property="posterImageView" destination="POv-ml-m9L" id="oqo-ES-Z8u"/>
                                     <outlet property="releaseDateLabel" destination="883-m6-5pS" id="yzf-Z7-J3m"/>
                                     <outlet property="titleLabel" destination="Lag-Hy-gQN" id="iNy-C3-T98"/>
+                                    <segue destination="kqT-GM-v4o" kind="presentation" id="fYZ-Nd-1Ku"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>
@@ -88,5 +92,31 @@
             </objects>
             <point key="canvasLocation" x="670" y="1110"/>
         </scene>
+        <!--MovieSearchResultsPageController-->
+        <scene sceneID="Tgp-6w-nbC">
+            <objects>
+                <viewControllerPlaceholder storyboardName="MovieSearchResultsPageController" id="kqT-GM-v4o" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="GVE-O8-KVd" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1338" y="1109"/>
+        </scene>
     </scenes>
+    <resources>
+        <namedColor name="primaryLabel">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.84700000286102295" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="secondaryLabel">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.49799999594688416" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tableViewBackground">
+            <color red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tableViewCellBackground">
+            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="tableViewSeparator">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.097999997437000275" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+    <color key="tintColor" name="tint"/>
 </document>

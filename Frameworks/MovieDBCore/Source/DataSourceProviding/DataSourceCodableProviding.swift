@@ -8,7 +8,7 @@ public protocol DataSourceEncoder {
     func encode<T>(_ value: T) throws -> Data where T : Encodable
 }
 
-public protocol CodableDataSourceProviding: DataSourceProviding {
+public protocol DataSourceCodableProviding: DataSourceProviding {
     var maxItemsCount: Int { get }
     var storageURL: URL { get }
     var decoder: DataSourceDecoder { get }
@@ -16,4 +16,10 @@ public protocol CodableDataSourceProviding: DataSourceProviding {
     func load()
     func flush()
     func append(item: DataSourceDisplayableItem)
+}
+
+extension DataSourceCodableProviding {
+    var maxItemsCount: Int {
+        return .max
+    }
 }
