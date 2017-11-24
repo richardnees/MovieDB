@@ -2,6 +2,7 @@ import XCTest
 @testable import MovieDBCore
 
 class MovieTests: XCTestCase {
+    
     let decoder = JSONDecoder()
     let movie1DataURL = Bundle(for: MovieSearchContainerTests.self).url(forResource: "Movie1", withExtension: "json")
     let movie2DataURL = Bundle(for: MovieSearchContainerTests.self).url(forResource: "Movie2", withExtension: "json")

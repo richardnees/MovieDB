@@ -40,11 +40,4 @@
          location = "group:Applications/MovieDB/MovieDB.xcodeproj">
       </FileRef>
    </Group>
-   <Group
-      location = "container:Playgrounds"
-      name = "Playgrounds">
-      <FileRef
-         location = "group:HTTPCodes.playground">
-      </FileRef>
-   </Group>
 </Workspace>

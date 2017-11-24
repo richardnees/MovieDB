@@ -13,6 +13,8 @@ public class DefaultDataSourceProvider: DataSourceProviding {
     public var willUpdate: DataSourceProvidingWillUpdateHandler?
     
     public func update() {
+        willUpdate?()
+        
         didUpdate?()
     }
     

@@ -2,6 +2,7 @@ import XCTest
 @testable import MovieDBCore
 
 class FileManagerTests: XCTestCase {
+
     var subject: MockFileManager!
     
     override func setUp() {
@@ -26,4 +27,5 @@ class FileManagerTests: XCTestCase {
         
         XCTAssertEqual(appSupportURL, expectedURL)
     }
+
 }

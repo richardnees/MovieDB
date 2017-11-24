@@ -10,10 +10,7 @@ public protocol DataSourceEncoder {
 
 /// Local Codable Data Source Providing Protocol
 public protocol LocalCodableDataSourceProviding: DataSourceProviding {
-
-    /// Current version of store
-    var currentVersion: Int { get }
-    
+        
     /// Maximum Items held in store
     var maxItemsCount: Int { get }
     

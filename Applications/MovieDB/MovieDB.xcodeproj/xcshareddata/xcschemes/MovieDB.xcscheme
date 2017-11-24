@@ -69,7 +69,7 @@
             </BuildableReference>
          </TestableReference>
          <TestableReference
-            skipped = "YES">
+            skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "79317F8D1FC1BE51005A5900"
@@ -85,6 +85,16 @@
                BlueprintIdentifier = "79317F6B1FC1BDB3005A5900"
                BuildableName = "MovieDBTests.xctest"
                BlueprintName = "MovieDBTests"
+               ReferencedContainer = "container:MovieDB.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "797B98321FC8AF2D0014D1FE"
+               BuildableName = "MovieDBUITests.xctest"
+               BlueprintName = "MovieDBUITests"
                ReferencedContainer = "container:MovieDB.xcodeproj">
             </BuildableReference>
          </TestableReference>

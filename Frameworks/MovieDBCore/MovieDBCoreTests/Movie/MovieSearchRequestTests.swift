@@ -2,6 +2,7 @@ import XCTest
 @testable import MovieDBCore
 
 class MovieSearchRequestTests: XCTestCase {
+    
     func testURLFromRequest() {
         let request = MovieSearchRequest(query: "test", page: 9)
         let requestURL = request.url
@@ -10,4 +11,5 @@ class MovieSearchRequestTests: XCTestCase {
         
         XCTAssertEqual(requestURL, expectedURL)
     }
+    
 }

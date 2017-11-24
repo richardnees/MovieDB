@@ -2,6 +2,7 @@ import Foundation
 import MovieDBCore
 
 class MockURLSession: URLSessionProtocol {
+
     var mockDataTask = MockURLSessionDataTask()
     var error: Error?
     var response: URLResponse?
@@ -11,4 +12,5 @@ class MockURLSession: URLSessionProtocol {
         completionHandler(data, response, error)
         return mockDataTask
     }
+
 }

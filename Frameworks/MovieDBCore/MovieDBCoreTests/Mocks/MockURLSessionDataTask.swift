@@ -2,6 +2,7 @@ import Foundation
 import MovieDBCore
 
 class MockURLSessionDataTask: URLSessionDataTaskProtocol {    
+
     func resume() {
         
     }
@@ -9,4 +10,5 @@ class MockURLSessionDataTask: URLSessionDataTaskProtocol {
     func cancel() {
         
     }
+
 }

@@ -2,6 +2,7 @@ import XCTest
 @testable import MovieDBCore
 
 class MovieSearchContainerTests: XCTestCase {
+    
     var apiClient: APIClient!
     let session = MockURLSession()
     let timeout: TimeInterval = 0
@@ -64,4 +65,5 @@ class MovieSearchContainerTests: XCTestCase {
         waitForExpectations(timeout: timeout, handler: nil)
         XCTAssertNil(expectedContainer)
     }
+    
 }

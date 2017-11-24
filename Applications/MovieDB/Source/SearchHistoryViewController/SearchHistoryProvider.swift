@@ -3,7 +3,6 @@ import MovieDBCore
 import MovieDBKit
 
 class SearchHistoryProvider: JSONCodableDataSourceProviding {
-    
     var headerTitle = NSLocalizedString("Recent Searches", comment: "Needs comment")
     var emptyDataSourceInfoString = NSLocalizedString("No recent searches", comment: "Needs comment")
     var loadingDataSourceInfoString = NSLocalizedString("Loading…", comment: "Needs comment")
@@ -17,7 +16,6 @@ class SearchHistoryProvider: JSONCodableDataSourceProviding {
     let allowsEditing = true
     let allowsFlush = true
     
-    var currentVersion = 1
     var maxItemsCount = 10
     let storageURL = FileManager.default.applicationSupportURL.appendingPathComponent("MovieSearchHistory").appendingPathExtension("json")
     
@@ -31,12 +29,8 @@ class SearchHistoryProvider: JSONCodableDataSourceProviding {
         
         do {
             let data = try Data(contentsOf: storageURL)
-            let container = try decoder.decode(MovieSearchHistoryContainer.self, from: data)
-            if
-                let items = container.items,
-                container.version >= currentVersion {
-                self.items = items
-            }
+            let items = try decoder.decode([MovieSearchHistoryItem].self, from: data)
+            self.items = items
         } catch let error {
             errorHandler?(error)
         }
@@ -47,8 +41,7 @@ class SearchHistoryProvider: JSONCodableDataSourceProviding {
         do {
             try FileManager.default.createDirectory(at: storageURL.deletingLastPathComponent(), withIntermediateDirectories: true, attributes: nil)
             let historyItems = items as? [MovieSearchHistoryItem]
-            let container = MovieSearchHistoryContainer(version: currentVersion, items: historyItems)
-            let data = try encoder.encode(container)
+            let data = try encoder.encode(historyItems)
             try data.write(to: storageURL)
         } catch let error {
             errorHandler?(error)

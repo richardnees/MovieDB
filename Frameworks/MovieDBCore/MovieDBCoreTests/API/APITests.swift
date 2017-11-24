@@ -2,6 +2,7 @@ import XCTest
 @testable import MovieDBCore
 
 class APITests: XCTestCase {
+
     func testDefaultQueryItems() {
         let defaultQueryItems = API.defaultQueryItems
         
@@ -18,4 +19,5 @@ class APITests: XCTestCase {
         
         XCTAssertEqual(urlComponents.url, expectedURL)
     }
+
 }
