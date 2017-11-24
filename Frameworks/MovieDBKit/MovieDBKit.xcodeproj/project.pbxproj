@@ -8,13 +8,12 @@
 
 /* Begin PBXBuildFile section */
 		79317F8F1FC1BE51005A5900 /* MovieDBKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 79317F851FC1BE51005A5900 /* MovieDBKit.framework */; };
-		79317F941FC1BE51005A5900 /* MovieDBKitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79317F931FC1BE51005A5900 /* MovieDBKitTests.swift */; };
 		79317F961FC1BE51005A5900 /* MovieDBKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 79317F881FC1BE51005A5900 /* MovieDBKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		79317FBE1FC1BF7D005A5900 /* MovieDBKit.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 79317FBB1FC1BF7D005A5900 /* MovieDBKit.xcconfig */; };
 		79317FBF1FC1BF7D005A5900 /* Release.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 79317FBC1FC1BF7D005A5900 /* Release.xcconfig */; };
 		79317FC01FC1BF7D005A5900 /* Debug.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = 79317FBD1FC1BF7D005A5900 /* Debug.xcconfig */; };
 		79317FCB1FC1C4B3005A5900 /* MovieDBKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79317FCA1FC1C4B3005A5900 /* MovieDBKit.swift */; };
-		793FDEB91FC1E96600EE461D /* ImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FDEB81FC1E96600EE461D /* ImageView.swift */; };
+		793FDEB91FC1E96600EE461D /* PosterImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 793FDEB81FC1E96600EE461D /* PosterImageView.swift */; };
 		793FDEBD1FC1EBA500EE461D /* MovieDBCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 793FDEBE1FC1EBA500EE461D /* MovieDBCore.framework */; };
 		796E74391FC3492B00EF25F5 /* DataSourceLoadingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796E74361FC3492A00EF25F5 /* DataSourceLoadingCell.swift */; };
 		796E743B1FC3492B00EF25F5 /* DataSourceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 796E74381FC3492B00EF25F5 /* DataSourceController.swift */; };
@@ -43,13 +42,12 @@
 		79317F881FC1BE51005A5900 /* MovieDBKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MovieDBKit.h; sourceTree = "<group>"; };
 		79317F891FC1BE51005A5900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79317F8E1FC1BE51005A5900 /* MovieDBKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = MovieDBKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		79317F931FC1BE51005A5900 /* MovieDBKitTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBKitTests.swift; sourceTree = "<group>"; };
 		79317F951FC1BE51005A5900 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		79317FBB1FC1BF7D005A5900 /* MovieDBKit.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = MovieDBKit.xcconfig; sourceTree = "<group>"; };
 		79317FBC1FC1BF7D005A5900 /* Release.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Release.xcconfig; sourceTree = "<group>"; };
 		79317FBD1FC1BF7D005A5900 /* Debug.xcconfig */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xcconfig; path = Debug.xcconfig; sourceTree = "<group>"; };
 		79317FCA1FC1C4B3005A5900 /* MovieDBKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieDBKit.swift; sourceTree = "<group>"; };
-		793FDEB81FC1E96600EE461D /* ImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageView.swift; sourceTree = "<group>"; };
+		793FDEB81FC1E96600EE461D /* PosterImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PosterImageView.swift; sourceTree = "<group>"; };
 		793FDEBE1FC1EBA500EE461D /* MovieDBCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = MovieDBCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		796E74361FC3492A00EF25F5 /* DataSourceLoadingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceLoadingCell.swift; sourceTree = "<group>"; };
 		796E74381FC3492B00EF25F5 /* DataSourceController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceController.swift; sourceTree = "<group>"; };
@@ -83,6 +81,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		79005BFA1FC875AE00A66B88 /* PosterImageView */ = {
+			isa = PBXGroup;
+			children = (
+				793FDEB81FC1E96600EE461D /* PosterImageView.swift */,
+			);
+			path = PosterImageView;
+			sourceTree = "<group>";
+		};
 		79317F7B1FC1BE51005A5900 = {
 			isa = PBXGroup;
 			children = (
@@ -109,7 +115,7 @@
 			children = (
 				79317F891FC1BE51005A5900 /* Info.plist */,
 				79317FCD1FC1C4F6005A5900 /* MovieDBKit */,
-				793FDEB81FC1E96600EE461D /* ImageView.swift */,
+				79005BFA1FC875AE00A66B88 /* PosterImageView */,
 				79FF09841FC5D73F00C4D2F6 /* TableInfoBackgroundView */,
 				796E743F1FC3494E00EF25F5 /* DataSourceController */,
 			);
@@ -119,7 +125,6 @@
 		79317F921FC1BE51005A5900 /* MovieDBKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				79317F931FC1BE51005A5900 /* MovieDBKitTests.swift */,
 				79317F951FC1BE51005A5900 /* Info.plist */,
 			);
 			path = MovieDBKitTests;
@@ -304,7 +309,7 @@
 				79EC53BF1FC4605900C6255D /* DefaultDataSourceProvider.swift in Sources */,
 				79D5C3231FC3896300F2F07D /* DataSourceCellProtocol.swift in Sources */,
 				79EC53C91FC4651100C6255D /* DataSourceController+UITableViewDataSourcePrefetching.swift in Sources */,
-				793FDEB91FC1E96600EE461D /* ImageView.swift in Sources */,
+				793FDEB91FC1E96600EE461D /* PosterImageView.swift in Sources */,
 				796E74391FC3492B00EF25F5 /* DataSourceLoadingCell.swift in Sources */,
 				79FF09811FC5D0D200C4D2F6 /* TableInfoBackgroundView.swift in Sources */,
 				79EC53C71FC464EF00C6255D /* DataSourceController+UITableViewDataSource.swift in Sources */,
@@ -316,7 +321,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				79317F941FC1BE51005A5900 /* MovieDBKitTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

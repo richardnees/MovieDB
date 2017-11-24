@@ -15,11 +15,21 @@ class SearchHistoryViewController: UITableViewController {
             dataSourceController.tableView = tableView
             
             dataSourceController.errorHandler = { error in
-                // FIXME: Handle error
-                print(error)
+                let alert = UIAlertController(
+                    title: NSLocalizedString("An error occured", comment: "Needs comment"),
+                    message: error.localizedDescription,
+                    preferredStyle: .alert)
+                
+                alert.addAction(
+                    UIAlertAction(
+                        title: NSLocalizedString("OK", comment: "Needs comment"),
+                        style: .default,
+                        handler: nil))
+                
+                self.present(alert, animated: true, completion: nil)
             }
             
-            dataSourceController.updateHandler = {
+            dataSourceController.didUpdate = {
                 DispatchQueue.main.async {
                     self.navigationItem.leftBarButtonItem = nil
                     self.navigationItem.rightBarButtonItem = self.dataSourceController.provider.totalItemCount > 0
@@ -37,6 +47,7 @@ class SearchHistoryViewController: UITableViewController {
         guard let searchResultsController = UIStoryboard(name: String(describing: SearchResultsViewController.self), bundle: nil).instantiateInitialViewController() as? SearchResultsViewController else {
             fatalError("We need a SearchResultsViewController")
         }
+        searchResultsController.delegate = self
         return searchResultsController
     }()
     
@@ -83,9 +94,9 @@ class SearchHistoryViewController: UITableViewController {
         guard let item = dataSourceController.provider.items[indexPath.row] as? MovieSearchHistoryItem else { return }
         
         searchController.searchBar.text = item.query
-        present(searchController, animated: true) {
-            self.searchResultsController.query = item.query
-        }
+        searchResultsController.query = item.query
+
+        present(searchController, animated: true, completion: nil)
     }
     
     // MARK: - Table View Editing
@@ -100,58 +111,30 @@ class SearchHistoryViewController: UITableViewController {
     
     @objc func deleteAll(_ sender: Any) {
         guard dataSourceController.provider.allowsFlush else { return }
-        if let provider = dataSourceController.provider as? CodableDataSourceProviding {
-            
-            let alert = UIAlertController(
-                title: NSLocalizedString("Delete All", comment: "Needs comment"),
-                message: NSLocalizedString("Are you sure?", comment: "Needs comment"),
-                preferredStyle: .actionSheet)
-            
-            alert.addAction(
-                UIAlertAction(
-                    title: NSLocalizedString("Delete", comment: "Needs comment"),
-                    style: .destructive,
-                    handler: { action in
-                        provider.flush()
-                        self.setEditing(false, animated: true)
-                }))
-
-            alert.addAction(
-                UIAlertAction(
-                    title: NSLocalizedString("Cancel", comment: "Needs comment"),
-                    style: .cancel,
-                    handler: nil))
-            
-            alert.view.tintColor = UIColor(named: "tint")
-            present(alert, animated: true, completion: nil)
-        }
+        
+        let alert = UIAlertController(
+            title: NSLocalizedString("Delete All", comment: "Needs comment"),
+            message: NSLocalizedString("Are you sure?", comment: "Needs comment"),
+            preferredStyle: .actionSheet)
+        
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("Delete", comment: "Needs comment"),
+                style: .destructive,
+                handler: { action in
+                    self.dataSourceController.provider.flush()
+                    self.setEditing(false, animated: true)
+            }))
+        
+        alert.addAction(
+            UIAlertAction(
+                title: NSLocalizedString("Cancel", comment: "Needs comment"),
+                style: .cancel,
+                handler: nil))
+        
+        alert.view.tintColor = UIColor(named: "tint")
+        
+        present(alert, animated: true, completion: nil)
     }
-}
 
-// MARK: - UISearchControllerDelegate
-
-extension SearchHistoryViewController: UISearchControllerDelegate {
-    
-    func didDismissSearchController(_ searchController: UISearchController) {
-        tableView.reloadData()
-    }
-}
-
-// MARK: - UISearchBarDelegate
-
-extension SearchHistoryViewController: UISearchBarDelegate {
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        if
-            let query = searchBar.text,
-            !query.isEmpty {
-            
-            if let provider = dataSourceController.provider as? CodableDataSourceProviding {
-                let item = MovieSearchHistoryItem(query: query)
-                provider.append(item: item)
-            }
-            dataSourceController.update()
-            
-            searchResultsController.query = query
-        }
-    }
 }

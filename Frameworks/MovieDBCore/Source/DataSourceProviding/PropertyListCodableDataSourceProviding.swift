@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol PropertyListCodableDataSourceProviding: CodableDataSourceProviding {
+public protocol PropertyListCodableDataSourceProviding: LocalCodableDataSourceProviding {
 }
 
 extension PropertyListCodableDataSourceProviding {

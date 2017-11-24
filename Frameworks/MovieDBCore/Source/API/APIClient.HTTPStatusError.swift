@@ -1,6 +1,7 @@
 import Foundation
 
 extension APIClient {
+    /// HTTP Status codes errors
     public enum HTTPStatusError: Error {
         case httpError(code: Int)
     }
@@ -17,7 +18,6 @@ extension APIClient.HTTPStatusError: LocalizedError {
 }
 
 extension APIClient.HTTPStatusError: CustomNSError {
-    
     public static var errorDomain: String {
         return "APIClient.HTTPStatusError"
     }

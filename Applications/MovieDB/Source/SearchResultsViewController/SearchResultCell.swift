@@ -3,7 +3,8 @@ import MovieDBCore
 import MovieDBKit
 
 class SearchResultCell: UITableViewCell, DataSourceCellProtocol {
-    @IBOutlet var posterImageView: ImageView!
+    
+    @IBOutlet var posterImageView: PosterImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
     @IBOutlet var releaseDateLabel: UILabel!
@@ -21,6 +22,9 @@ class SearchResultCell: UITableViewCell, DataSourceCellProtocol {
                 releaseDateLabel.isHidden = true
             }
             
+            posterImageView.layer.masksToBounds = true
+            posterImageView.layer.cornerRadius = 10.0
+
             if
                 let posterPathComponent = movie.posterPathComponent,
                 let posterURL = Poster(path: posterPathComponent).url(for: .medium) {
@@ -39,13 +43,17 @@ class SearchResultCell: UITableViewCell, DataSourceCellProtocol {
         overviewLabel.text = nil
         releaseDateLabel.text = nil
     }
+    
 }
 
 extension SearchResultCell {
+    
     static let releaseDateFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .none
         return formatter
     }()
+    
 }
+

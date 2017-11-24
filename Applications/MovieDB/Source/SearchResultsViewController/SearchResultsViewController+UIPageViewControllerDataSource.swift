@@ -2,6 +2,7 @@ import UIKit
 import MovieDBCore
 
 extension SearchResultsViewController: UIPageViewControllerDataSource {
+    
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
         
         guard
@@ -18,6 +19,7 @@ extension SearchResultsViewController: UIPageViewControllerDataSource {
         let previousIndex = currentIndex - 1
         detailViewController.loadViewIfNeeded()
         detailViewController.item = movies[previousIndex]
+        
         return detailViewController
     }
     
@@ -37,11 +39,14 @@ extension SearchResultsViewController: UIPageViewControllerDataSource {
         let nextIndex = currentIndex + 1
         detailViewController.loadViewIfNeeded()
         detailViewController.item = movies[nextIndex]
+        
         return detailViewController
     }
+    
 }
 
 extension SearchResultsViewController: UIPageViewControllerDelegate {
+    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
         
         guard
@@ -55,4 +60,5 @@ extension SearchResultsViewController: UIPageViewControllerDelegate {
 
         selectedMovieIndex = currentIndex
     }
+    
 }

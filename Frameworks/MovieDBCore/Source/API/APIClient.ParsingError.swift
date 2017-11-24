@@ -1,6 +1,7 @@
 import Foundation
 
 extension APIClient {
+    /// Basic parsing errors
     public enum ParsingError: Error {
         case noData
         case imageCreationFailed

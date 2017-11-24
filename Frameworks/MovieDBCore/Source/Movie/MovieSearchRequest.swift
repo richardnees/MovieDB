@@ -1,5 +1,6 @@
 import Foundation
 
+/// Used to search for `MovieSearchContainer`
 public class MovieSearchRequest {
     public var query: String
     public var page: Int
@@ -17,5 +18,11 @@ extension MovieSearchRequest: Request {
         urlComponents.queryItems?.append(URLQueryItem(name: "page", value: String(page)))
         urlComponents.queryItems?.append(URLQueryItem(name: "query", value: query))
         return urlComponents
+    }
+}
+
+extension MovieSearchRequest: Equatable {
+    public static func ==(lhs: MovieSearchRequest, rhs: MovieSearchRequest) -> Bool {
+        return lhs.query == rhs.query
     }
 }

@@ -2,22 +2,42 @@ import UIKit
 import MovieDBCore
 import MovieDBKit
 
+protocol SearchResultsViewControllerDelegate: class {
+    func searchResultsViewController(_ searchResultsViewController: SearchResultsViewController, successfullySearchedFor query: String)
+    func searchResultsViewController(_ searchResultsViewController: SearchResultsViewController, unsuccessfullySearchedFor query: String)
+}
+
 class SearchResultsViewController: UITableViewController {
 
+    // MARK: - Delegate
+
+    weak var delegate: SearchResultsViewControllerDelegate?
+    
+    // MARK: - Properties
+
+    var query: String = "" {
+        didSet {
+            if !query.isEmpty {
+                dataSourceController = DataSourceController()
+                let provider = SearchResultsDataSourceProvider()
+                provider.request = MovieSearchRequest(query: query)
+                dataSourceController.provider = provider
+                dataSourceController.update()
+            }
+        }
+    }
+
     var selectedMovieIndex: Int = 0
+    
     var animatedViewController: UIViewController? {
         didSet {
             guard let animatedViewController = animatedViewController else { return }
             animatedViewController.view.layer.zPosition = -1000
         }
     }
-    
-    var animatedTransform: CATransform3D = {
-        var transform = CATransform3DIdentity
-        transform.m34 = 1.0 / -500
-        return CATransform3DRotate(transform, CGFloat(Double.pi)/4, 1.0, 0.0, 0.0)
-    }()
-    
+
+    // MARK: - View Controller Life Cycle
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -26,45 +46,14 @@ class SearchResultsViewController: UITableViewController {
         // https://stackoverflow.com/questions/1633966/can-i-force-a-uitableview-to-hide-the-separator-between-empty-cells
         tableView.tableFooterView = UIView(frame: .zero)
     }
-    
-    var makeDetailViewController: DetailViewController? {
-        return UIStoryboard(name: String(describing: DetailViewController.self), bundle: nil).instantiateInitialViewController() as? DetailViewController
-    }
-    
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard
-            let cell = sender as? SearchResultCell,
-            let movie = cell.item as? Movie,
-            let movies = dataSourceController.provider.items as? [Movie],
-            let index = movies.index(of: movie),
-            let navigationController = segue.destination as? UINavigationController,
-            let pageViewController = navigationController.topViewController as? SearchResultsPageController,
-            let detailViewController = makeDetailViewController
-            else {
-                return
-        }
         
-        selectedMovieIndex = index
-        
-        pageViewController.delegate = self
-        pageViewController.dataSource = self
-        
-        detailViewController.loadViewIfNeeded()
-        detailViewController.item = movie
-        
-        animatedViewController = presentingViewController?.navigationController
-        presentModalDetails(true)
-        
-        pageViewController.setViewControllers([detailViewController], direction: .forward, animated: true, completion: nil)
-    }
-    
+    // MARK: - Data Source Controller
+
     var dataSourceController = DataSourceController() {
         didSet {
             
-            tableView.reloadData()
-            
             dataSourceController.tableView = tableView
-                        
+            
             dataSourceController.errorHandler = { error in
                 let alert = UIAlertController(
                     title: NSLocalizedString("An error occured", comment: "Needs comment"),
@@ -80,20 +69,17 @@ class SearchResultsViewController: UITableViewController {
                 self.present(alert, animated: true, completion: nil)
             }
             
-            dataSourceController.updateHandler = {
+            dataSourceController.willUpdate = {
                 self.tableView.reloadData()
             }
-        }
-    }
-        
-    var query: String = "" {
-        didSet {
-            if !query.isEmpty {
-                dataSourceController = DataSourceController()
-                let provider = SearchResultsDataSourceProvider()
-                provider.request = MovieSearchRequest(query: query)
-                dataSourceController.provider = provider
-                dataSourceController.update()
+            
+            dataSourceController.didUpdate = {
+                if self.dataSourceController.provider.totalItemCount == 0 {
+                    self.delegate?.searchResultsViewController(self, unsuccessfullySearchedFor: self.query)
+                } else {
+                    self.delegate?.searchResultsViewController(self, successfullySearchedFor: self.query)
+                }
+                self.tableView.reloadData()
             }
         }
     }
@@ -104,27 +90,4 @@ class SearchResultsViewController: UITableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
     }
     
-    // MARK: - Unwind Segues
-    
-    @IBAction func unwindModalPresentation(_ segue: UIStoryboardSegue) {
-        presentModalDetails(false)
-        let selectedIndexPath = IndexPath(row: selectedMovieIndex, section: 0)
-        tableView.scrollToRow(at: selectedIndexPath, at: .top, animated: false)
-    }
-    
-    func presentModalDetails(_ presenting: Bool) {
-        let animation = UIViewPropertyAnimator(duration: 0.25, curve: presenting ? .easeIn : .easeOut, animations: { [weak self] in
-            guard
-                let animatedTransform = self?.animatedTransform,
-                let animatedViewController = self?.animatedViewController
-                else {
-                    return
-            }
-            
-            animatedViewController.view.layer.opacity = presenting ? 0.2 : 1.0
-            animatedViewController.view.layer.transform = presenting ? animatedTransform : CATransform3DIdentity
-        })
-        
-        animation.startAnimation()
-    }
 }

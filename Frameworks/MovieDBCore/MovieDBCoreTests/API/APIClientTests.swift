@@ -103,7 +103,30 @@ class APIClientTests: XCTestCase {
             case let .failure(error):
                 expectedError = error
                 expect.fulfill()
-            }            
+            }
+        }
+        
+        waitForExpectations(timeout: timeout, handler: nil)
+        XCTAssertNotNil(expectedError)
+    }
+
+    func testLoadHTTPResponseError() {
+        let url = URL(string: "https://www.apple.com")!
+        let expect = expectation(description: "Wait for \(url) to fail with no data.")
+        var expectedError: Error?
+        
+        let resource = Resource<Data>(url: url) { data -> Result<Data> in
+            return Result.success(data)
+        }
+        session.response = HTTPURLResponse(url: url, statusCode: 403, httpVersion: nil, headerFields: nil)
+        subject.load(resource: resource) { result in
+            switch result {
+            case .success(_):
+                XCTAssert(false)
+            case let .failure(error):
+                expectedError = error
+                expect.fulfill()
+            }
         }
         
         waitForExpectations(timeout: timeout, handler: nil)

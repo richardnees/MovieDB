@@ -1,6 +1,8 @@
 import Foundation
 
 extension DateFormatter {
+   
+    /// Formats yyyy-MM-dd
     static let apiYearMonthDayDateFormatter: DateFormatter = {
         let dateFormatter = DateFormatter()
         dateFormatter.locale = Locale(identifier: "en_US_POSIX")

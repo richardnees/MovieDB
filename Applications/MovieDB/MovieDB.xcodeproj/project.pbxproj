@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79005BFC1FC8781B00A66B88 /* SearchResultsViewController+Segues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79005BFB1FC8781B00A66B88 /* SearchResultsViewController+Segues.swift */; };
+		79005BFE1FC87ABE00A66B88 /* SearchHistoryViewController+UISearchControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79005BFD1FC87ABE00A66B88 /* SearchHistoryViewController+UISearchControllerDelegate.swift */; };
+		79005C001FC87AF100A66B88 /* SearchHistoryViewController+UISearchBarDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79005BFF1FC87AF100A66B88 /* SearchHistoryViewController+UISearchBarDelegate.swift */; };
+		79005C021FC87B1500A66B88 /* SearchHistoryViewController+SearchResultsViewControllerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79005C011FC87B1500A66B88 /* SearchHistoryViewController+SearchResultsViewControllerDelegate.swift */; };
 		7903981D1FC822CA00B24CD9 /* DetailViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7903981F1FC822CA00B24CD9 /* DetailViewController.storyboard */; };
 		790398211FC8235200B24CD9 /* SearchHistoryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 790398201FC8235200B24CD9 /* SearchHistoryViewController.swift */; };
 		790398231FC823DD00B24CD9 /* SearchHistoryViewController.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7903981C1FC8221800B24CD9 /* SearchHistoryViewController.storyboard */; };
@@ -63,6 +67,10 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		79005BFB1FC8781B00A66B88 /* SearchResultsViewController+Segues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchResultsViewController+Segues.swift"; sourceTree = "<group>"; };
+		79005BFD1FC87ABE00A66B88 /* SearchHistoryViewController+UISearchControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewController+UISearchControllerDelegate.swift"; sourceTree = "<group>"; };
+		79005BFF1FC87AF100A66B88 /* SearchHistoryViewController+UISearchBarDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewController+UISearchBarDelegate.swift"; sourceTree = "<group>"; };
+		79005C011FC87B1500A66B88 /* SearchHistoryViewController+SearchResultsViewControllerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SearchHistoryViewController+SearchResultsViewControllerDelegate.swift"; sourceTree = "<group>"; };
 		7903981B1FC8221800B24CD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/SearchHistoryViewController.storyboard; sourceTree = "<group>"; };
 		7903981E1FC822CA00B24CD9 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/DetailViewController.storyboard; sourceTree = "<group>"; };
 		790398201FC8235200B24CD9 /* SearchHistoryViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchHistoryViewController.swift; sourceTree = "<group>"; };
@@ -211,6 +219,9 @@
 			children = (
 				7903981C1FC8221800B24CD9 /* SearchHistoryViewController.storyboard */,
 				790398201FC8235200B24CD9 /* SearchHistoryViewController.swift */,
+				79005C011FC87B1500A66B88 /* SearchHistoryViewController+SearchResultsViewControllerDelegate.swift */,
+				79005BFF1FC87AF100A66B88 /* SearchHistoryViewController+UISearchBarDelegate.swift */,
+				79005BFD1FC87ABE00A66B88 /* SearchHistoryViewController+UISearchControllerDelegate.swift */,
 				79FF097E1FC5CDB600C4D2F6 /* SearchHistoryProvider.swift */,
 				79FF09781FC5CCEE00C4D2F6 /* SearchHistoryCell.swift */,
 				79FF097C1FC5CD7700C4D2F6 /* MovieSearchHistoryItem+DataSourceDisplayableItem.swift */,
@@ -223,6 +234,7 @@
 			children = (
 				79D5C31A1FC387B400F2F07D /* SearchResultsViewController.storyboard */,
 				79317F5D1FC1BDB3005A5900 /* SearchResultsViewController.swift */,
+				79005BFB1FC8781B00A66B88 /* SearchResultsViewController+Segues.swift */,
 				79D85FE01FC73970006EB8C3 /* SearchResultsViewController+UIPageViewControllerDataSource.swift */,
 				79EC53C41FC460C800C6255D /* SearchResultsDataSourceProvider.swift */,
 				793FDEC21FC1F34B00EE461D /* SearchResultCell.swift */,
@@ -347,12 +359,16 @@
 				793FDEC71FC1F3C200EE461D /* Movie+DataSourceDisplayableItem.swift in Sources */,
 				79317F5E1FC1BDB3005A5900 /* SearchResultsViewController.swift in Sources */,
 				798D15261FC624E6007E01AB /* DetailViewController.swift in Sources */,
+				79005C021FC87B1500A66B88 /* SearchHistoryViewController+SearchResultsViewControllerDelegate.swift in Sources */,
 				79EC53C51FC460C800C6255D /* SearchResultsDataSourceProvider.swift in Sources */,
 				79FF097F1FC5CDB600C4D2F6 /* SearchHistoryProvider.swift in Sources */,
+				79005BFE1FC87ABE00A66B88 /* SearchHistoryViewController+UISearchControllerDelegate.swift in Sources */,
+				79005C001FC87AF100A66B88 /* SearchHistoryViewController+UISearchBarDelegate.swift in Sources */,
 				790398211FC8235200B24CD9 /* SearchHistoryViewController.swift in Sources */,
 				79FF097D1FC5CD7700C4D2F6 /* MovieSearchHistoryItem+DataSourceDisplayableItem.swift in Sources */,
 				79317F5C1FC1BDB3005A5900 /* AppDelegate.swift in Sources */,
 				79FF09791FC5CCEE00C4D2F6 /* SearchHistoryCell.swift in Sources */,
+				79005BFC1FC8781B00A66B88 /* SearchResultsViewController+Segues.swift in Sources */,
 				798D15241FC621DC007E01AB /* SearchResultsPageController.swift in Sources */,
 				79D85FE11FC73970006EB8C3 /* SearchResultsViewController+UIPageViewControllerDataSource.swift in Sources */,
 			);
@@ -448,6 +464,7 @@
 			baseConfigurationReference = 79317FAF1FC1BF5A005A5900 /* MovieDB.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = L67SAKHR8M;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -456,6 +473,7 @@
 			baseConfigurationReference = 79317FAF1FC1BF5A005A5900 /* MovieDB.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = L67SAKHR8M;
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

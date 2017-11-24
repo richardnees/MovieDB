@@ -9,3 +9,9 @@ public struct MovieSearchHistoryItem: Codable {
         modificationDate = Date()
     }
 }
+
+extension MovieSearchHistoryItem: Equatable {
+    public static func ==(lhs: MovieSearchHistoryItem, rhs: MovieSearchHistoryItem) -> Bool {
+        return lhs.query == rhs.query
+    }
+}

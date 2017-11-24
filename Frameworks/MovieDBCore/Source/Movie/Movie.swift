@@ -35,6 +35,7 @@ public struct Movie: Codable {
 }
 
 extension Movie {
+    /// Provides a date formatted with `DateFormatter.apiYearMonthDayDateFormatter` or nil if `releaseDateString` is missing or cannot be formatted.
     public var releaseDate: Date? {
         return DateFormatter.apiYearMonthDayDateFormatter.date(from: releaseDateString)
     }

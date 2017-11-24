@@ -1,5 +1,6 @@
 import Foundation
 
+/// Use `Poster` to convert `Movie.posterPathComponent` to a `URL`
 public struct Poster {
     public enum Size: String {
         case small = "w92"

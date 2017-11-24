@@ -2,12 +2,15 @@ import Foundation
 import MovieDBCore
 
 class SearchResultsDataSourceProvider: PagingNetworkDataSourceProviding {
+    
     var headerTitle = ""
     var emptyDataSourceInfoString = NSLocalizedString("No results", comment: "Needs comment")
     var loadingDataSourceInfoString = NSLocalizedString("Loading…", comment: "Needs comment")
+    
     var errorHandler: DataSourceProvidingErrorHandler?
-    var updateHandler: DataSourceProvidingUpdateHandler?
-    var prepareHandler: DataSourceProvidingPreparationHandler?
+    var didUpdate: DataSourceProvidingDidUpdateHandler?
+    var willUpdate: DataSourceProvidingWillUpdateHandler?
+    
     var items: [DataSourceItemProtocol] = []
     var totalItemCount: Int = 0
     
@@ -18,12 +21,28 @@ class SearchResultsDataSourceProvider: PagingNetworkDataSourceProviding {
     
     var request: MovieSearchRequest = MovieSearchRequest(query: "")
     
+    func flush() {
+        if allowsFlush {
+            items = []
+            totalItemCount = items.count
+        }
+        didUpdate?()
+    }
+    
     func update() {
-        prepareHandler?()
+        willUpdate?()
+
+        load(page: 1) {
+            self.didUpdate?()
+        }
+    }
+    
+    func load(page: Int, completion: @escaping () -> Void) {
+        request.page = page
         let resource = MovieSearchContainer.resource(with: request)
         task = APIClient.shared.dataTask(resource: resource) { [weak self] result in
             guard var strongSelf = self else { return }
-
+            
             switch result {
             case let .success(container):
                 strongSelf.page = container.page
@@ -31,21 +50,20 @@ class SearchResultsDataSourceProvider: PagingNetworkDataSourceProviding {
                 strongSelf.totalItemCount = container.totalResultCount
                 strongSelf.append(items: container.results)
                 
-                if strongSelf.page == 1 {
-                    strongSelf.updateHandler?()
-                }
+                completion()
             case let .failure(error):
                 strongSelf.errorHandler?(error)
             }
         }
-        
         task?.resume()
     }
     
     func loadNextPageIfNeeded() {
         guard page < totalPageCount else { return }
         
-        request.page += 1
-        update()
+        load(page: request.page + 1) {
+            
+        }
     }
+    
 }

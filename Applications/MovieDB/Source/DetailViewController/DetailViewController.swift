@@ -4,22 +4,20 @@ import MovieDBKit
 
 class DetailViewController: UIViewController {
 
+    // MARK: - IB Outlets
+
     @IBOutlet var effectView: UIVisualEffectView!
-    @IBOutlet var posterImageView: ImageView!
-    @IBOutlet var backgroundImageView: ImageView!
+    @IBOutlet var posterImageView: PosterImageView!
+    @IBOutlet var backgroundImageView: UIImageView!
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var overviewLabel: UILabel!
     @IBOutlet var releaseDateLabel: UILabel!
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        effectView.layer.masksToBounds = true
-        effectView.layer.cornerRadius = 10.0
-    }
+    // MARK: - Properties
 
     var item: DataSourceItemProtocol? {
         didSet {
+            
             guard let movie = item as? Movie else { return }
             titleLabel.text = movie.title
             overviewLabel.text = movie.overview
@@ -44,4 +42,14 @@ class DetailViewController: UIViewController {
             }
         }
     }
+    
+    // MARK: - View Controller Life Cycle
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        effectView.layer.masksToBounds = true
+        effectView.layer.cornerRadius = 10.0
+    }
+    
 }

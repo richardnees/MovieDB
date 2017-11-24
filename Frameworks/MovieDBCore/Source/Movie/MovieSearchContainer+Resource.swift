@@ -1,7 +1,8 @@
 import Foundation
 
 extension MovieSearchContainer {
-        
+    
+    /// Convenience to provide a `Resource` based on a `MovieSearchRequest`
     public static func resource(with request: MovieSearchRequest) -> Resource<MovieSearchContainer> {
         return Resource<MovieSearchContainer>(url: request.url) { data in
             let decoder = JSONDecoder()

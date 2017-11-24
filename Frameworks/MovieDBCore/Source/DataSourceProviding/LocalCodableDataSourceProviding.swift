@@ -8,17 +8,32 @@ public protocol DataSourceEncoder {
     func encode<T>(_ value: T) throws -> Data where T : Encodable
 }
 
-public protocol CodableDataSourceProviding: DataSourceProviding {
+/// Local Codable Data Source Providing Protocol
+public protocol LocalCodableDataSourceProviding: DataSourceProviding {
+
+    /// Current version of store
+    var currentVersion: Int { get }
+    
+    /// Maximum Items held in store
     var maxItemsCount: Int { get }
+    
+    /// Local File URL to store
     var storageURL: URL { get }
+    
+    /// Chosen Decoder
     var decoder: DataSourceDecoder { get }
+
+    /// Chosen Encoder
     var encoder: DataSourceEncoder { get }
+    
+    /// Called to load store storageURL
     func load()
-    func flush()
+    
+    /// Append item to store
     func append(item: DataSourceItemProtocol)
 }
 
-extension CodableDataSourceProviding {
+extension LocalCodableDataSourceProviding {
     var maxItemsCount: Int {
         return .max
     }

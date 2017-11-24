@@ -1,6 +1,6 @@
 import Foundation
 
-public protocol JSONCodableDataSourceProviding: CodableDataSourceProviding {
+public protocol JSONCodableDataSourceProviding: LocalCodableDataSourceProviding {
 }
 
 extension JSONCodableDataSourceProviding {
