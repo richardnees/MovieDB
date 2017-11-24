@@ -16,41 +16,29 @@
             <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No results" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5w-eA-nbs">
-                    <rect key="frame" x="-0.5" y="323" width="375" height="21"/>
-                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
-                    <color key="textColor" name="infoBackgroundLabel"/>
-                    <nil key="highlightedColor"/>
-                </label>
-                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Error" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vVe-cT-F81">
-                    <rect key="frame" x="0.0" y="323" width="375" height="21"/>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="U5w-eA-nbs">
+                    <rect key="frame" x="187" y="333.5" width="0.0" height="0.0"/>
                     <fontDescription key="fontDescription" type="system" weight="medium" pointSize="17"/>
                     <color key="textColor" name="infoBackgroundLabel"/>
                     <nil key="highlightedColor"/>
                 </label>
             </subviews>
-            <color key="backgroundColor" name="infoBackground"/>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
             <constraints>
                 <constraint firstItem="U5w-eA-nbs" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="DYq-Wb-DrR"/>
-                <constraint firstItem="vVe-cT-F81" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="PxI-yf-hHU"/>
-                <constraint firstItem="vVe-cT-F81" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="TxU-QP-6uB"/>
+                <constraint firstItem="vUN-kp-3ea" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="U5w-eA-nbs" secondAttribute="trailing" constant="10" id="Wha-UJ-kus"/>
                 <constraint firstItem="U5w-eA-nbs" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="aq2-d7-pUo"/>
-                <constraint firstItem="U5w-eA-nbs" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="hMS-SW-6VT"/>
-                <constraint firstItem="vVe-cT-F81" firstAttribute="width" secondItem="vUN-kp-3ea" secondAttribute="width" id="zMS-wt-JHB"/>
+                <constraint firstItem="U5w-eA-nbs" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="vUN-kp-3ea" secondAttribute="leading" constant="10" id="pUa-hx-thR"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="vUN-kp-3ea"/>
             <connections>
-                <outlet property="emptyDataSourceInfoLabel" destination="U5w-eA-nbs" id="o7R-ZD-6a5"/>
-                <outlet property="errorInfoLabel" destination="vVe-cT-F81" id="eHL-xS-2iQ"/>
+                <outlet property="infoLabel" destination="U5w-eA-nbs" id="O37-9f-W2Q"/>
             </connections>
         </view>
     </objects>
     <resources>
-        <namedColor name="infoBackground">
-            <color red="1" green="0.3619999885559082" blue="0.31400001049041748" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-        </namedColor>
         <namedColor name="infoBackgroundLabel">
-            <color red="0.0" green="1" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.49799999594688416" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
 </document>

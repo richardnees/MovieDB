@@ -6,6 +6,7 @@ public protocol Request {
 
 extension Request {
     public var url: URL {
+        // FIXME: Don't force unwrap
         return urlComponents.url!
     }
 }

@@ -20,6 +20,34 @@
                ReferencedContainer = "container:MovieDB.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79317F371FC1BC88005A5900"
+               BuildableName = "MovieDBCoreTests.xctest"
+               BlueprintName = "MovieDBCoreTests"
+               ReferencedContainer = "container:../../Frameworks/MovieDBCore/MovieDBCore.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "NO"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79317F8D1FC1BE51005A5900"
+               BuildableName = "MovieDBKitTests.xctest"
+               BlueprintName = "MovieDBKitTests"
+               ReferencedContainer = "container:../../Frameworks/MovieDBKit/MovieDBKit.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
       </BuildActionEntries>
    </BuildAction>
    <TestAction
@@ -27,8 +55,29 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES"
+      codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79317F371FC1BC88005A5900"
+               BuildableName = "MovieDBCoreTests.xctest"
+               BlueprintName = "MovieDBCoreTests"
+               ReferencedContainer = "container:../../Frameworks/MovieDBCore/MovieDBCore.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "79317F8D1FC1BE51005A5900"
+               BuildableName = "MovieDBKitTests.xctest"
+               BlueprintName = "MovieDBKitTests"
+               ReferencedContainer = "container:../../Frameworks/MovieDBKit/MovieDBKit.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
          <TestableReference
             skipped = "NO">
             <BuildableReference

@@ -4,6 +4,7 @@ import MovieDBCore
 public class DataSourceController: NSObject {
         
     public var errorHandler: DataSourceProvidingErrorHandler?
+    public var prepareHandler: DataSourceProvidingPreparationHandler?
     public var updateHandler: DataSourceProvidingUpdateHandler?
 
     public weak var tableView: UITableView? {
@@ -16,7 +17,6 @@ public class DataSourceController: NSObject {
             tableView.prefetchDataSource = self
             
             if let backgroundView = TableInfoBackgroundView.makeView(withOwner: self) {
-                backgroundView.displayState = .empty
                 tableView.backgroundView = backgroundView
             }
         }
@@ -30,20 +30,29 @@ public class DataSourceController: NSObject {
         didSet {
             provider.errorHandler = { error in
                 DispatchQueue.main.async {
-                    self.infoView?.errorInfoLabel.text = error.localizedDescription
-                    self.infoView?.displayState = .error
-                    self.infoView?.isHidden = false
+                    self.errorHandler?(error)
                 }
-                self.errorHandler?(error)
+            }
+            
+            provider.prepareHandler = {
+                DispatchQueue.main.async {
+                    if let backgroundView = self.tableView?.backgroundView as? TableInfoBackgroundView {
+                        backgroundView.infoLabel.text = self.provider.loadingDataSourceInfoString
+                    }
+                self.prepareHandler?()
+                }
             }
             
             provider.updateHandler = {
                 DispatchQueue.main.async {
-                    self.infoView?.emptyDataSourceInfoLabel.text = self.provider.emptyDataSourceInfoString
-                    self.infoView?.displayState = .empty
-                    self.infoView?.isHidden = self.provider.totalItemCount > 0
-                }
+                    self.tableView?.backgroundView?.isHidden = self.provider.totalItemCount > 0
+                    if let backgroundView = self.tableView?.backgroundView as? TableInfoBackgroundView {
+                        backgroundView.infoLabel.text = self.provider.totalItemCount > 0
+                        ? ""
+                        : self.provider.emptyDataSourceInfoString
+                    }
                 self.updateHandler?()
+                }
             }
         }
     }
@@ -53,7 +62,7 @@ public class DataSourceController: NSObject {
     }
     
     public func cancel() {
-        if let dataSource = provider as? DataSourceNetworkProviding {
+        if let dataSource = provider as? NetworkDataSourceProviding {
             dataSource.cancel()
         }
     }

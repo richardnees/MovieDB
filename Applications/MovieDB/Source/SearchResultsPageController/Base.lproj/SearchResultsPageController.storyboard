@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="q04-Ou-iFt">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Navigation Controller-->
+        <scene sceneID="gsA-9G-mmU">
+            <objects>
+                <navigationController navigationBarHidden="YES" toolbarHidden="NO" id="q04-Ou-iFt" sceneMemberID="viewController">
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" barStyle="black" prompted="NO"/>
+                    <simulatedToolbarMetrics key="simulatedBottomBarMetrics" barStyle="black"/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="giG-a2-3wH">
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" name="navigationBarBackground"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" name="navigationBarTitle"/>
+                        </textAttributes>
+                    </navigationBar>
+                    <toolbar key="toolbar" opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" barStyle="black" id="bXS-sf-Uu1">
+                        <rect key="frame" x="0.0" y="623" width="375" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </toolbar>
+                    <connections>
+                        <segue destination="6Wj-Vw-zh3" kind="relationship" relationship="rootViewController" id="KJV-V3-U2l"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="MER-p6-bwN" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-823" y="140"/>
+        </scene>
+        <!--Search Results Page Controller-->
+        <scene sceneID="6RJ-jm-yAL">
+            <objects>
+                <pageViewController storyboardIdentifier="SearchResultsPageController" autoresizesArchivedViewToFullSize="NO" useStoryboardIdentifierAsRestorationIdentifier="YES" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="6Wj-Vw-zh3" customClass="SearchResultsPageController" customModule="MovieDB" customModuleProvider="target" sceneMemberID="viewController">
+                    <toolbarItems>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="geQ-hN-DB4"/>
+                        <barButtonItem title="Close" id="ll6-Ie-ZH1">
+                            <connections>
+                                <action selector="close:" destination="6Wj-Vw-zh3" id="2Y2-Ta-eFP"/>
+                                <segue destination="1Xs-3W-3tS" kind="unwind" unwindAction="unwindModalPresentation:" id="6zg-oK-gBn"/>
+                            </connections>
+                        </barButtonItem>
+                        <barButtonItem style="plain" systemItem="flexibleSpace" id="hqc-gv-DTm"/>
+                    </toolbarItems>
+                    <navigationItem key="navigationItem" id="Zoc-xZ-HMg"/>
+                </pageViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="PJl-Uy-vl1" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <exit id="1Xs-3W-3tS" userLabel="Exit" sceneMemberID="exit"/>
+            </objects>
+            <point key="canvasLocation" x="25" y="140"/>
+        </scene>
+    </scenes>
+    <resources>
+        <namedColor name="navigationBarBackground">
+            <color red="1" green="1" blue="1" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="navigationBarTitle">
+            <color red="0.0" green="0.0" blue="0.0" alpha="0.80000001192092896" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+    <color key="tintColor" name="tint"/>
+</document>

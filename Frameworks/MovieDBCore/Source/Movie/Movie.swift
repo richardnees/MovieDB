@@ -36,10 +36,7 @@ public struct Movie: Codable {
 
 extension Movie {
     public var releaseDate: Date? {
-        guard let releaseDate = API.yearMonthDayDateFormatter.date(from: releaseDateString) else {
-            return nil
-        }
-        return releaseDate
+        return DateFormatter.apiYearMonthDayDateFormatter.date(from: releaseDateString)
     }
 }
 

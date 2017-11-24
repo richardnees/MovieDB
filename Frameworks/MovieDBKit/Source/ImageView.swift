@@ -2,7 +2,7 @@ import UIKit
 import MovieDBCore
 
 public class ImageView: UIImageView {
-    var dataTask: URLSessionDataTask?
+    var dataTask: URLSessionDataTaskProtocol?
     
     public func cancel() {
         dataTask?.cancel()
@@ -15,12 +15,11 @@ public class ImageView: UIImageView {
             if let image = UIImage(data: data) {
                 return Result.success(image)
             } else {
-                // FIXME:
-                return Result.failure(ResourceLoader.ParsingError.imageCreationFailed)
+                return Result.failure(APIClient.ParsingError.imageCreationFailed)
             }
         }
         
-        dataTask = ResourceLoader().dataTask(resource: imageDataResource) { [weak self] result in
+        dataTask = APIClient.shared.dataTask(resource: imageDataResource) { [weak self] result in
             switch result {
             case let .success(image):
                 DispatchQueue.main.async {

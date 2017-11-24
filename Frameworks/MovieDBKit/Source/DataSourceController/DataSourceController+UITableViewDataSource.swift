@@ -15,7 +15,7 @@ extension DataSourceController: UITableViewDataSource {
     }
     
     public func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        if let provider = provider as? DataSourceNetworkPagingProviding {
+        if let provider = provider as? PagingNetworkDataSourceProviding {
             guard indexPath.row < provider.totalItemCount else {
                 return tableView.dequeueReusableCell(withIdentifier: DataSourceLoadingCell.identifier, for: indexPath)
             }
@@ -25,7 +25,7 @@ extension DataSourceController: UITableViewDataSource {
 
         let cell = tableView.dequeueReusableCell(withIdentifier: item.cellIdentifier, for: indexPath)
         
-        if var cell = cell as? DataSourceDisplayableCell {
+        if var cell = cell as? DataSourceCellProtocol {
             cell.item = item
         }
         return cell as UITableViewCell
