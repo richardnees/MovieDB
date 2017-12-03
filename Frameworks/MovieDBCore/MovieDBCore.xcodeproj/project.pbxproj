@@ -161,10 +161,10 @@
 				79EC53CC1FC48C4C00C6255D /* Foundation Extensions */,
 				79317FD51FC1CC7C005A5900 /* API */,
 				79317FC71FC1C3DD005A5900 /* Resource */,
+				79EC53B91FC45FE500C6255D /* DataSourceProviding */,
 				79317FCE1FC1C601005A5900 /* Movie */,
 				793FDEBF1FC1EEEA00EE461D /* Poster */,
 				79005BF71FC8488600A66B88 /* DataSourceItemProtocol */,
-				79EC53B91FC45FE500C6255D /* DataSourceProviding */,
 			);
 			path = Source;
 			sourceTree = "<group>";
